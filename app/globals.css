@@ -133,3 +133,56 @@
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.171);
 }
+
+.datatable-info {
+  font-size: 0.875rem;
+  color: rgb(107 114 128);
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.datatable-pagination {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-radius: 10px;
+}
+
+.datatable-pagination-list {
+  display: inline-flex;
+  font-size: 0.875rem;
+  height: 2rem;
+}
+
+.datatable-pagination-list-item button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  height: 2rem;
+  margin-inline-start: 0;
+  line-height: 1.25;
+  color: rgb(107 114 128);
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.datatable-pagination-list-item button:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+  cursor: pointer;
+}
+
+.datatable-pagination-list-item {
+  @apply flex items-center justify-center text-gray-500;
+}
+
+.datatable-active button {
+  @apply bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700;
+}

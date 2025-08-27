@@ -16,7 +16,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="bg-amber-400 py-8">
+    <div className="bg-gray-400">
       <div style={{ width: '100%', height: '100vh', position: 'absolute' }}>
         <Orb
           hoverIntensity={0.5}

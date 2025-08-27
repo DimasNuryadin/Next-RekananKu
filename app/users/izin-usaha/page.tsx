@@ -1,5 +1,4 @@
 "use client"
-import TableCoba from "@/components/molecules/TableCoba";
 import TableIzinUsaha from "@/components/molecules/TableIzinUsaha";
 
 export default function IzinUsaha() {
