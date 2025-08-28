@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="py-6 px-40 fixed w-full z-10">
-      <div className={`bg-white/80 flex items-center justify-between px-6 py-3 shadow ${styles.bgNavbar}`}>
+      <div className={`bg-gray-300/90 flex items-center justify-between px-6 py-3 shadow ${styles.bgNavbar}`}>
         <Link href="/">
           <Image
             src="/img/logo-text.svg"
@@ -15,10 +15,11 @@ export default function Navbar() {
             className="h-auto"
           />
         </Link>
-
-        <div className="flex items-center gap-6">
-          <Link href="/" className="hover:text-blue-600">Home</Link>
-          <Link href="/signin" className="hover:text-blue-600">Sign In</Link>
+        <div className="flex items-center gap-9 text-gray-900">
+          <Link href="/" className="font-medium hover:text-blue-600">Home</Link>
+          <div
+            className="inline-block min-h-[2em] w-0.5 self-stretch bg-gray-900 "></div>
+          <Link href="/signin" className="font-medium hover:text-blue-600">Sign In</Link>
         </div>
       </div>
     </div>

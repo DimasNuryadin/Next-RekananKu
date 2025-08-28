@@ -16,7 +16,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="bg-gray-400">
+    <div className="bg-gray-100">
       <div style={{ width: '100%', height: '100vh', position: 'absolute' }}>
         <Orb
           hoverIntensity={0.5}
@@ -37,15 +37,16 @@ export default function SignIn() {
             </div>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="bg-white/70 mt-12 mb-4" />
             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="bg-white/70 mb-4" />
-            <Button onClick={handleSign} className="w-full cursor-pointer">Button</Button>
-            <div className="text-center mt-4 text-sm">
+            <Button onClick={handleSign} className="w-full cursor-pointer">Sign Up</Button>
+            <div className="text-center mt-4 text-sm text-gray-800">
               Forgot Password?
-              <Link href="/forgot-password" className=""> Click Here</Link>
+              <Link href="/forgot-password" className="font-medium"> Click Here</Link>
             </div>
           </div>
-          <div className="text-sm text-center mt-4 z-10 backdrop-brightness-100">
-            <Link href="/signup" className="">
-              Dont have an account? Sign Up
+          <div className="text-sm text-center mt-4 z-10 backdrop-brightness-100 text-gray-800">
+            Dont have an account?
+            <Link href="/signup" className="font-medium">
+              { } Sign Up
             </Link>
           </div>
         </div>

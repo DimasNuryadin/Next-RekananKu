@@ -40,7 +40,7 @@ export default function SideBar() {
           <div>
             <p className="text-m text-gray-900 text-center">Selamat datang</p>
             <p className="text-xs text-gray-900 text-center mt-1">dimasnuryadinn@gmail.com</p>
-            <a href="/users" className="flex items-center mt-3 p-2 bg-gray-400 text-gray-900 rounded-lg hover:bg-gray-100 group justify-center">
+            <a href="/users" className="flex items-center mt-3 p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 group justify-center">
               <span>Logout</span>
             </a>
           </div>
