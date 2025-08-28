@@ -40,6 +40,7 @@ export default function AjukanRekanan() {
   async function fetchData() {
     const perusahaan = await getDataPerusahaan(user.id);
     setPerusahaanId(perusahaan.data[0]._id)
+    console.log(perusahaan.data[0]._id)
     setDataPerusahaan(perusahaan.data.length)
 
     const izin = await getIzinUsaha(user.id);
@@ -61,6 +62,8 @@ export default function AjukanRekanan() {
     if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli >= 1) {
       const data = { user: user.id, dataPerusahaan: perusahaanId }
       const response = await createRekanan(data);
+      console.log(data)
+      console.log(response)
       if (response.error) {
         return toast.error(response?.message);
       } else {
