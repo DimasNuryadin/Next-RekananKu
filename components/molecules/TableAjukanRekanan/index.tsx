@@ -1,4 +1,6 @@
-export default function TableAjukanRekanan() {
+import clsx from "clsx";
+
+export default function TableAjukanRekanan({ data }: any) {
   return (
     <div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg pb-4">
@@ -25,8 +27,13 @@ export default function TableAjukanRekanan() {
                 Data Perusahaan
               </td>
               <td className="p-4">
-                <span className="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Lengkap
+                <span className={clsx(
+                  "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
+                  data.dataPerusahaan
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}>
+                  {data.dataPerusahaan >= 1 ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>
@@ -38,8 +45,13 @@ export default function TableAjukanRekanan() {
                 Izin Usaha
               </td>
               <td className="p-4">
-                <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Lengkap
+                <span className={clsx(
+                  "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
+                  data.izinUsaha
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}>
+                  {data.izinUsaha >= 1 ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>
@@ -51,8 +63,13 @@ export default function TableAjukanRekanan() {
                 Pemilik
               </td>
               <td className="p-4">
-                <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Lengkap
+                <span className={clsx(
+                  "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
+                  data.pemilik
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}>
+                  {data.pemilik >= 1 ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>
@@ -64,8 +81,13 @@ export default function TableAjukanRekanan() {
                 Pengurus
               </td>
               <td className="p-4">
-                <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Lengkap
+                <span className={clsx(
+                  "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
+                  data.pengurus
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}>
+                  {data.pengurus >= 1 ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>
@@ -77,8 +99,13 @@ export default function TableAjukanRekanan() {
                 Tenaga Ahli
               </td>
               <td className="p-4">
-                <span className="inline-flex items-center bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Lengkap
+                <span className={clsx(
+                  "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
+                  data.tenagaAhli
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                )}>
+                  {data.tenagaAhli >= 1 ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>

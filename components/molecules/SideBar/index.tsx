@@ -1,9 +1,34 @@
 import ListSidebar from "@/components/atoms/ListSidebar"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function SideBar() {
-  const [open, setOpen] = useState(false)
+  const router = useRouter()
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({
+    email: "",
+    id: ""
+  });
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = atob(token || '');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload?.player;
+      setUser(userFromPayload);
+    }
+  }, [])
+
+  function handleLogout() {
+    Cookies.remove('token');
+    router.push('/signin');
+  }
 
   return (
     <div>
@@ -39,10 +64,10 @@ export default function SideBar() {
           </div>
           <div>
             <p className="text-m text-gray-900 text-center">Selamat datang</p>
-            <p className="text-xs text-gray-900 text-center mt-1">dimasnuryadinn@gmail.com</p>
-            <a href="/users" className="flex items-center mt-3 p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 group justify-center">
+            <p className="text-xs text-gray-900 text-center mt-1">{user.email}</p>
+            <Button onClick={handleLogout} className="flex items-center mt-3 p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 group justify-center w-full text-center">
               <span>Logout</span>
-            </a>
+            </Button>
           </div>
         </div>
       </aside>

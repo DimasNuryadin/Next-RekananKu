@@ -12,6 +12,12 @@ export interface CardBenefitProps {
 
 export interface UserTypes {
   id: string,
+  email: string
+}
+
+export interface JWTPayloadTypes {
+  player: UserTypes,
+  iat: number
 }
 
 export interface FormSign {
@@ -20,7 +26,6 @@ export interface FormSign {
 }
 
 export interface DataPerusahaanTypes {
-  _id: string,
   user: string,
   namaPerusahaan: string,
   bidangUsaha: string,
@@ -35,24 +40,21 @@ export interface DataPerusahaanTypes {
   kantorCabang: string,
 }
 
-export interface IzinUsaha {
-  _id: string,
+export interface IzinUsahaTypes {
   user: string,
   jenisIzin: string,
   noSurat: string,
   berlakuSampai: string,
   instansiPemberi: string
 }
-export interface Pemilik {
-  _id: string,
+export interface PemilikTypes {
   user: string,
   nama: string,
   ktp: string,
   alamat: string,
   saham: string,
 }
-export interface Pengurus {
-  _id: string,
+export interface PengurusTypes {
   user: string,
   nama: string,
   ktp: string,
@@ -61,8 +63,7 @@ export interface Pengurus {
   tanggalMulai: Date,
   tanggalSelesai: Date,
 }
-export interface IzinUsaha {
-  _id: string,
+export interface TenagaAhliTypes {
   user: string,
   nama: string,
   alamat: string,

@@ -1,13 +1,15 @@
-import axios from "axios";
-import { UserTypes } from "./data-types";
+import callApi from "@/config/api";
+import { DataPerusahaanTypes } from "./data-types";
 
 const ROOT_API = process.env.NEXT_PUBLIC_API_URL;
 const API_VERSION = 'api/v1';
 
-export async function getDataPerusahaan({id}:UserTypes) {
-  const URL = `data-perusahaan/${id}`;
+export async function getDataPerusahaan(id: string) {
+  const url = `${ROOT_API}/${API_VERSION}/data-perusahaan/${id}`;
+  return callApi({url, method: 'GET'});
+}
 
-  const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
-  const axiosResponse = response.data;
-  return axiosResponse;
+export async function createDataPerusahaan(data: DataPerusahaanTypes) {
+  const url = `${ROOT_API}/${API_VERSION}/data-perusahaan`;
+  return callApi({url, method: 'POST', data});
 }

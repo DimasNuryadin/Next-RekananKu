@@ -3,16 +3,40 @@ import Navbar from "@/components/molecules/Navbar";
 import Orb from "@/components/reactbits/orb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { setSignIn } from "@/services/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
+
+// Cookies
+import Cookies from 'js-cookie';
 
 export default function SignIn() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSign() {
-    console.log("data", email, password);
+  async function handleSignIn() {
+    const data = {
+      email,
+      password
+    }
+    if (!email || !password) {
+      return toast.error("Email dan password wajib diisi!");
+    } else {
+      const response = await setSignIn(data);
+      if (response.error) {
+        return toast.error(response?.message);
+      } else {
+        toast.success("Login Berhasil!");
+        const token = response?.data?.token;
+        const tokenBase64 = btoa(token);
+        Cookies.set('token', tokenBase64, { expires: 1 })
+        router.push("/users/data-perusahaan");
+      }
+    }
   }
 
   return (
@@ -37,7 +61,7 @@ export default function SignIn() {
             </div>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="bg-white/70 mt-12 mb-4" />
             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="bg-white/70 mb-4" />
-            <Button onClick={handleSign} className="w-full cursor-pointer">Sign Up</Button>
+            <Button onClick={handleSignIn} className="w-full cursor-pointer">Sign Up</Button>
             <div className="text-center mt-4 text-sm text-gray-800">
               Forgot Password?
               <Link href="/forgot-password" className="font-medium"> Click Here</Link>

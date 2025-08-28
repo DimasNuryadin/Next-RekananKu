@@ -18,9 +18,9 @@ export default function SignUp() {
 
   async function handleSignUp() {
     const data = { email, password }
-    const result = await setSignUp(data);
-    if (!_.isEmpty(result?.error)) {
-      return toast.error(result.error.message)
+    const response = await setSignUp(data);
+    if (response.error) {
+      return toast.error(response?.message);
     } else {
       toast.success('Register berhasil, silahkan login')
     }
