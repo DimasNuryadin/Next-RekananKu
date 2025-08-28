@@ -3,17 +3,27 @@ import Navbar from "@/components/molecules/Navbar";
 import Orb from "@/components/reactbits/orb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { setSignUp } from "@/services/auth";
+import { toast } from 'react-toastify';
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+
+const _ = require('lodash');
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleSign() {
-    console.log("data", email, password);
+  async function handleSignUp() {
+    const data = { email, password }
+    const result = await setSignUp(data);
+    if (!_.isEmpty(result?.error)) {
+      return toast.error(result.error.message)
+    } else {
+      toast.success('Register berhasil, silahkan login')
+    }
   }
 
   return (
@@ -39,7 +49,7 @@ export default function SignUp() {
             <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="bg-white/70 mt-12 mb-4" />
             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="bg-white/70 mb-4" />
             <Input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" className="bg-white/70 mb-4" />
-            <Button onClick={handleSign} className="w-full cursor-pointer bg-gray-800">Sign Up</Button>
+            <Button onClick={handleSignUp} className="w-full cursor-pointer bg-gray-800">Sign Up</Button>
             <div className="text-center mt-4 text-sm text-gray-800">
               Already have account?
               <Link href="/signin" className="font-medium"> Sign In</Link>
