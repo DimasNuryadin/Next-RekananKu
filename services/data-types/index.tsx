@@ -78,3 +78,9 @@ export interface TenagaAhliTypes {
   jabatan: string,
   statusKepegawaian: string
 }
+
+export interface StatusRekananProps {
+  user: string,
+  dataPerusahaan: string,
+  status?: string
+}

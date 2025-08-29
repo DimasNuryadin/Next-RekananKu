@@ -25,7 +25,7 @@ export default function AjukanRekanan() {
   const [pemilik, setPemilik] = useState(0);
   const [pengurus, setPengurus] = useState(0);
   const [tenagaAhli, setTenagaAhli] = useState(0);
-  const [statusRekanan, setStatusRekanan] = useState([])
+  const [statusRekanan, setStatusRekanan] = useState({ status: '' });
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -83,6 +83,16 @@ export default function AjukanRekanan() {
     }
   }
 
+  let statusClass;
+
+  if (statusRekanan?.status === "Rekanan") {
+    statusClass = "bg-green-100 text-green-800";
+  } else if (statusRekanan?.status === "Bukan Rekanan") {
+    statusClass = "bg-red-100 text-red-800";
+  } else {
+    statusClass = "bg-blue-100 text-blue-800";
+  }
+
   return (
     <div className="p-3 md:p-10">
       <h2 className="text-4xl font-extrabold dark:text-white mb-8">Status Kelengkapan Administrasi</h2>
@@ -92,11 +102,7 @@ export default function AjukanRekanan() {
           <h1 className="font-bold text-2xl">Status Pengajuan</h1>
           <p className={clsx(
             "inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full",
-            statusRekanan?.status === "Rekanan"
-              ? "bg-green-100 text-green-800"
-              : statusRekanan?.status === "Bukan Rekanan"
-                ? "bg-red-100 text-red-800"
-                : "bg-blue-100 text-blue-800"
+            statusClass
           )}>{statusRekanan?.status ?? "N/A"}</p>
         </div>
       </div>
