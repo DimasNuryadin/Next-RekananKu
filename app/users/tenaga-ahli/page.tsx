@@ -1,7 +1,7 @@
 "use client"
 import TableTenagaAhli from "@/components/molecules/TableTenagaAhli";
 
-export default function Pemilik() {
+export default function TenagaAhli() {
   return (
     <div className="p-3 md:p-10">
       <h2 className="text-4xl font-extrabold dark:text-white mb-8">Tenaga Ahli</h2>

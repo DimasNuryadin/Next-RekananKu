@@ -21,6 +21,7 @@ export default function TableTenagaAhli() {
       fetchTenagaAhli(user.id);
     }
   }, [])
+  console.log("user", tenagaAhli)
 
   async function fetchTenagaAhli(id: string) {
     const response = await getTenagaAhli(id)

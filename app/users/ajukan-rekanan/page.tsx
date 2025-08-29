@@ -62,8 +62,6 @@ export default function AjukanRekanan() {
     if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli >= 1) {
       const data = { user: user.id, dataPerusahaan: perusahaanId }
       const response = await createRekanan(data);
-      console.log(data)
-      console.log(response)
       if (response.error) {
         return toast.error(response?.message);
       } else {

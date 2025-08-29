@@ -8,10 +8,11 @@ import { toast } from 'react-toastify';
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-const _ = require('lodash');
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,6 +24,7 @@ export default function SignUp() {
       return toast.error(response?.message);
     } else {
       toast.success('Register berhasil, silahkan login')
+      router.push('/signin')
     }
   }
 

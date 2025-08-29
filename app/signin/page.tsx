@@ -34,7 +34,7 @@ export default function SignIn() {
         const token = response?.data?.token;
         const tokenBase64 = btoa(token);
         Cookies.set('token', tokenBase64, { expires: 1 })
-        router.push("/users/data-perusahaan");
+        router.push("/users/data-perusahaan/create");
       }
     }
   }

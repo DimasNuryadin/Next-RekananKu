@@ -9,6 +9,6 @@ export async function getRekanan(id: string) {
 }
 
 export async function createRekanan(data: any) {
-  const url = `${ROOT_API}/calon-rekanan`;
+  const url = `${ROOT_API}/calon-rekanan/create`;
   return callApi({url, method: 'POST', data});
 }
