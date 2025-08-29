@@ -46,7 +46,7 @@ export default function CreatePengurus() {
 
   return (
     <div className="p-3 md:p-10">
-      <h2 className="text-4xl font-extrabold dark:text-white mb-8">Izin Usaha</h2>
+      <h2 className="text-4xl font-extrabold dark:text-white mb-8">Pengurus</h2>
       <div className="mt-8 w-1/2">
         <InputForm onChange={(e) => setNama(e.target.value)} value={nama} label="Nama" id="nama" required />
         <InputForm onChange={(e) => setKtp(e.target.value)} value={ktp} label="KTP" id="ktp" required />
