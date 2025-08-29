@@ -84,7 +84,7 @@ export default function TablePemilik() {
                     {pemilik.alamat}
                   </td>
                   <td className="px-6 py-4">
-                    {pemilik.saham}
+                    {pemilik.saham}%
                   </td>
                   <td className="px-6 py-4">
                     <Button onClick={() => handleDelete(pemilik._id)} className="bg-red-500 cursor-pointer hover:bg-red-800">Hapus</Button>
