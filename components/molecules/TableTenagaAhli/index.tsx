@@ -12,29 +12,6 @@ export default function TableTenagaAhli() {
   const [tenagaAhli, setTenagaAhli] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const jwtToken = atob(token || '');
-      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-      const userFromPayload: UserTypes = payload?.player;
-      setUser(userFromPayload);
-      fetchTenagaAhli(user.id);
-    }
-  }, [])
-  console.log("user", tenagaAhli)
-
-  async function fetchTenagaAhli(id: string) {
-    const response = await getTenagaAhli(id)
-    setTenagaAhli(response.data);
-  }
-
-  async function handleDelete(id: string) {
-    await deleteTenagaAhli(id)
-    toast.success('Berhasil delete')
-    fetchTenagaAhli(user.id);
-  }
-
-  useEffect(() => {
     const initializeDataTable = async () => {
       const { DataTable } = await import("simple-datatables");
 
@@ -47,6 +24,33 @@ export default function TableTenagaAhli() {
     };
     initializeDataTable();
   }, []);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = atob(token || '');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload?.player;
+      setUser(userFromPayload);
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchTenagaAhli();
+  }, [user.id]);
+
+  async function fetchTenagaAhli() {
+    if (user.id) {
+      const response = await getTenagaAhli(user.id);
+      setTenagaAhli(response.data);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    await deleteTenagaAhli(id)
+    toast.success('Berhasil delete')
+    fetchTenagaAhli();
+  }
 
   return (
     <div>

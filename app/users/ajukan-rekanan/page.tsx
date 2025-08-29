@@ -34,27 +34,8 @@ export default function AjukanRekanan() {
       const payload: JWTPayloadTypes = jwtDecode(jwtToken);
       const userFromPayload: UserTypes = payload?.player;
       setUser(userFromPayload);
-      fetchData();
     }
   }, [])
-
-  async function fetchData() {
-    const perusahaan = await getDataPerusahaan(user.id);
-    setPerusahaanId(perusahaan.data[0]._id)
-    setDataPerusahaan(perusahaan.data.length)
-
-    const izin = await getIzinUsaha(user.id);
-    setIzinUsaha(izin.data.length)
-
-    const pemilik = await getPemilik(user.id);
-    setPemilik(pemilik.data.length)
-
-    const pengurus = await getPengurus(user.id);
-    setPengurus(pengurus.data.length)
-
-    const tenaga = await getTenagaAhli(user.id);
-    setTenagaAhli(tenaga.data.length)
-  }
 
   const data = { dataPerusahaan, izinUsaha, pemilik, pengurus, tenagaAhli }
 
@@ -74,14 +55,33 @@ export default function AjukanRekanan() {
   }
 
   useEffect(() => {
-    async function fetchStatusRekanan() {
-      if (user.id) {
-        const response = await getRekanan(user.id);
-        setStatusRekanan(response.data);
-      }
-    }
     fetchStatusRekanan();
   }, [user.id]);
+
+  async function fetchStatusRekanan() {
+    if (user.id) {
+      const response = await getRekanan(user.id);
+      setStatusRekanan(response.data);
+
+      const perusahaan = await getDataPerusahaan(user.id);
+      if (perusahaan.data) {
+        setPerusahaanId(perusahaan.data._id)
+        setDataPerusahaan(perusahaan.data.length)
+      }
+
+      const izin = await getIzinUsaha(user.id);
+      setIzinUsaha(izin.data.length)
+
+      const pemilik = await getPemilik(user.id);
+      setPemilik(pemilik.data.length)
+
+      const pengurus = await getPengurus(user.id);
+      setPengurus(pengurus.data.length)
+
+      const tenaga = await getTenagaAhli(user.id);
+      setTenagaAhli(tenaga.data.length)
+    }
+  }
 
   return (
     <div className="p-3 md:p-10">

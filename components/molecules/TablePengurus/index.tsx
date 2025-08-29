@@ -12,28 +12,6 @@ export default function TablePengurus() {
   const [pengurus, setPengurus] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const jwtToken = atob(token || '');
-      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-      const userFromPayload: UserTypes = payload?.player;
-      setUser(userFromPayload);
-      fetchPengurus(user.id);
-    }
-  }, [])
-
-  async function fetchPengurus(id: string) {
-    const response = await getPengurus(id)
-    setPengurus(response.data);
-  }
-
-  async function handleDelete(id: string) {
-    await deletePengurus(id)
-    toast.success('Berhasil delete')
-    fetchPengurus(user.id);
-  }
-
-  useEffect(() => {
     const initializeDataTable = async () => {
       const { DataTable } = await import("simple-datatables");
 
@@ -46,6 +24,33 @@ export default function TablePengurus() {
     };
     initializeDataTable();
   }, []);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = atob(token || '');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload?.player;
+      setUser(userFromPayload);
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchPengurus();
+  }, [user.id]);
+
+  async function fetchPengurus() {
+    if (user.id) {
+      const response = await getPengurus(user.id);
+      setPengurus(response.data);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    await deletePengurus(id)
+    toast.success('Berhasil delete')
+    fetchPengurus();
+  }
 
   return (
     <div>

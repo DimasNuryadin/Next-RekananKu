@@ -61,7 +61,7 @@ export default function SignIn() {
             </div>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="bg-white/70 mt-12 mb-4" />
             <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="bg-white/70 mb-4" />
-            <Button onClick={handleSignIn} className="w-full cursor-pointer">Sign Up</Button>
+            <Button onClick={handleSignIn} className="w-full cursor-pointer">Sign In</Button>
             <div className="text-center mt-4 text-sm text-gray-800">
               Forgot Password?
               <Link href="/forgot-password" className="font-medium"> Click Here</Link>
