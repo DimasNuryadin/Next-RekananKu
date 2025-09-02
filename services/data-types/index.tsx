@@ -44,7 +44,7 @@ export interface IzinUsahaTypes {
   user: string,
   jenisIzin: string,
   noSurat: string,
-  berlakuSampai: string,
+  berlakuSampai?: Date,
   instansiPemberi: string
 }
 export interface PemilikTypes {
@@ -60,8 +60,8 @@ export interface PengurusTypes {
   ktp: string,
   alamat: string,
   jabatan: string,
-  tanggalMulai: Date,
-  tanggalSelesai: Date,
+  tanggalMulai?: Date,
+  tanggalSelesai?: Date,
 }
 export interface TenagaAhliTypes {
   user: string,

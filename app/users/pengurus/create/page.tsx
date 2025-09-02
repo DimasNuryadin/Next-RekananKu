@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
 import { useRouter } from "next/navigation";
 import { createPengurus } from "@/services/pengurus";
+import InputDateForm from "@/components/atoms/InputDateForm";
 
 export default function CreatePengurus() {
   const router = useRouter();
@@ -20,8 +21,8 @@ export default function CreatePengurus() {
   const [ktp, setKtp] = useState("");
   const [alamat, setAlamat] = useState("");
   const [jabatan, setJabatan] = useState("");
-  const [tanggalMulai, setTanggalMulai] = useState("");
-  const [tanggalSelesai, setTanggalSelesai] = useState("");
+  const [tanggalMulai, setTanggalMulai] = useState<Date>();
+  const [tanggalSelesai, setTanggalSelesai] = useState<Date>();
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -34,13 +35,17 @@ export default function CreatePengurus() {
   }, [])
 
   async function handleCreatePengurus() {
-    const data = { user: user.id, nama, ktp, alamat, jabatan, tanggalMulai, tanggalSelesai }
-    const response = await createPengurus(data);
-    if (response.error) {
-      toast.error(response?.message.message);
+    if (nama && ktp && alamat && jabatan && tanggalMulai && tanggalSelesai) {
+      const data = { user: user.id, nama, ktp, alamat, jabatan, tanggalMulai, tanggalSelesai }
+      const response = await createPengurus(data);
+      if (response.error) {
+        toast.error(response?.message.errorResponse.errmsg);
+      } else {
+        toast.success('Pengurus berhasil ditambah')
+        router.push('/users/pengurus')
+      }
     } else {
-      toast.success('Pengurus berhasil ditambah')
-      router.push('/users/pengurus')
+      toast.error('Masukan semua data!')
     }
   }
 
@@ -52,8 +57,8 @@ export default function CreatePengurus() {
         <InputForm onChange={(e) => setKtp(e.target.value)} value={ktp} label="KTP" id="ktp" required />
         <InputForm onChange={(e) => setAlamat(e.target.value)} value={alamat} label="Alamat" id="alamat" required />
         <InputForm onChange={(e) => setJabatan(e.target.value)} value={jabatan} label="Jabatan" id="jabatan" required />
-        <InputForm onChange={(e) => setTanggalMulai(e.target.value)} value={tanggalMulai} label="Tanggal Mulai" id="tanggalMulai" required />
-        <InputForm onChange={(e) => setTanggalSelesai(e.target.value)} value={tanggalSelesai} label="Tanggal Selesai" id="tanggalSelesai" required />
+        <InputDateForm onDateChange={setTanggalMulai} value={tanggalMulai} label="Tanggal Mulai" />
+        <InputDateForm onDateChange={setTanggalSelesai} value={tanggalSelesai} label="Tanggal Selesai" />
         <Button onClick={handleCreatePengurus} className="mt-4 cursor-pointer">Submit</Button>
       </div>
     </div>
