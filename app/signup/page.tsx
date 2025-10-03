@@ -43,7 +43,6 @@ export default function SignUp() {
       toast.error('Anda harus menyetujui syarat dan ketentuan');
       return;
     }
-    toast.success('Register berhasil, silahkan login');
 
     const response = await setSignUp(formData);
     if (response.error) {

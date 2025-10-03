@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { deletePengurus, getPengurus } from "@/services/pengurus";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Cookies from 'js-cookie';
@@ -35,16 +35,16 @@ export default function TablePengurus() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchPengurus();
-  }, [user.id]);
-
-  async function fetchPengurus() {
+  const fetchPengurus = useCallback(async () => {
     if (user.id) {
       const response = await getPengurus(user.id);
       setPengurus(response.data);
     }
-  }
+  }, [user.id])
+
+  useEffect(() => {
+    fetchPengurus();
+  }, [fetchPengurus]);
 
   async function handleDelete(id: string) {
     await deletePengurus(id)
@@ -82,7 +82,7 @@ export default function TablePengurus() {
             </tr>
           </thead>
           <tbody>
-            {pengurus.map((pengurus: any) => {
+            {pengurus?.map((pengurus: any) => {
               return (
                 <tr key={pengurus._id} className="bg-white border-b  border-gray-200 hover:bg-gray-50 text-gray-900">
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">

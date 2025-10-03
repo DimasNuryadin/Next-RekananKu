@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SideBar() {
   const router = useRouter()
@@ -50,9 +51,15 @@ export default function SideBar() {
         </div>
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 flex flex-col justify-between">
           <div>
-            <a href="/users" className="flex justify-center items-center ps-2.5 mt-6 mb-16">
-              <Image src="/img/logo-text.svg" alt="Logo" width={160} height={100} />
-            </a>
+            <Link href="/users" className="flex justify-center items-center ps-2.5 mt-6 mb-16">
+              <Image
+                src="/img/logo-text.svg"
+                alt="Logo"
+                width={160}
+                height={100}
+                sizes="(max-width: 768px) 100vw, 160px"
+              />
+            </Link>
             <ul className="space-y-2 font-medium">
               <ListSidebar label="Data Perusahaan" link="/users/data-perusahaan" />
               <ListSidebar label="Izin Usaha" link="/users/izin-usaha" />

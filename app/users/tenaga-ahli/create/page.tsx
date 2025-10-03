@@ -41,7 +41,6 @@ export default function CreateTenagaAhli() {
 
   async function handleCreateTenagaAhli() {
     const data = { user: user.id, nama, alamat, pendidikanTerakhir, email, profesiKeahlian, ktp, npwp, jenisKelamin, kewarganegaraan, pengalamanKerja, jabatan, statusKepegawaian }
-    console.log(data)
     const response = await createTenagaAhli(data);
     if (response.error) {
       toast.error(response?.message.message);

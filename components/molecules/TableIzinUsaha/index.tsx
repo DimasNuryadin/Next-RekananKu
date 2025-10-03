@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { deleteIzinUsaha, getIzinUsaha } from "@/services/izinUsaha";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Cookies from 'js-cookie';
@@ -35,21 +35,21 @@ export default function TableIzinUsaha() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchIzinUsaha();
-  }, [user.id]);
-
-  async function fetchIzinUsaha() {
+  const getIzinUsahaList = useCallback(async () => {
     if (user.id) {
-      const response = await getIzinUsaha(user.id);
+      const response = await getIzinUsaha();
       setIzinUsaha(response.data);
     }
-  }
+  }, [user.id]);
+
+  useEffect(() => {
+    getIzinUsahaList();
+  }, [getIzinUsahaList]);
 
   async function handleDelete(id: string) {
     await deleteIzinUsaha(id)
     toast.success('Berhasil delete')
-    fetchIzinUsaha();
+    getIzinUsahaList();
   }
 
   return (
@@ -76,7 +76,7 @@ export default function TableIzinUsaha() {
             </tr>
           </thead>
           <tbody>
-            {izinUsaha.map((izinUsaha: any) => {
+            {izinUsaha?.map((izinUsaha: any) => {
               return (
                 <tr key={izinUsaha._id} className="bg-white border-b  border-gray-200 hover:bg-gray-50 text-gray-900">
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">

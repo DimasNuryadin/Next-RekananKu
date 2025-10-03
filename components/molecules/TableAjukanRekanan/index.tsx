@@ -33,7 +33,7 @@ export default function TableAjukanRekanan({ data }: any) {
                     ? "bg-green-100 text-green-800"
                     : "bg-red-100 text-red-800"
                 )}>
-                  {data.dataPerusahaan >= 1 ? 'Lengkap' : 'Belum Lengkap'}
+                  {data.dataPerusahaan ? 'Lengkap' : 'Belum Lengkap'}
                 </span>
               </td>
             </tr>

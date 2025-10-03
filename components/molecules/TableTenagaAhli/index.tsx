@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { deleteTenagaAhli, getTenagaAhli } from "@/services/tenagaAhli";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Cookies from 'js-cookie';
@@ -35,16 +35,16 @@ export default function TableTenagaAhli() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchTenagaAhli();
-  }, [user.id]);
-
-  async function fetchTenagaAhli() {
+  const fetchTenagaAhli = useCallback(async () => {
     if (user.id) {
       const response = await getTenagaAhli(user.id);
       setTenagaAhli(response.data);
     }
-  }
+  }, [user.id]);
+
+  useEffect(() => {
+    fetchTenagaAhli();
+  }, [fetchTenagaAhli]);
 
   async function handleDelete(id: string) {
     await deleteTenagaAhli(id)
@@ -85,7 +85,7 @@ export default function TableTenagaAhli() {
             </tr>
           </thead>
           <tbody>
-            {tenagaAhli.map((tenagaAhli: any) => {
+            {tenagaAhli?.map((tenagaAhli: any) => {
               return (
                 <tr key={tenagaAhli._id} className="bg-white border-b  border-gray-200 hover:bg-gray-50 text-gray-900">
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">

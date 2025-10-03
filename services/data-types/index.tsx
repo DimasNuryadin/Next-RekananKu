@@ -26,12 +26,12 @@ export interface FormSign {
 }
 
 export interface DataPerusahaanTypes {
-  user: string,
-  namaPerusahaan: string,
+  user_id?: string,
+  namaPerusahaan?: string,
   bidangUsaha: string,
   tipe: string,
   npwp: string,
-  telepon: string,
+  telepon?: string,
   website: string,
   alamat: string,
   kota: string,

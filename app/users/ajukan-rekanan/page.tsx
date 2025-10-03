@@ -1,7 +1,7 @@
 "use client"
 import TableAjukanRekanan from "@/components/molecules/TableAjukanRekanan";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 import { JWTPayloadTypes, UserTypes } from "@/services/data-types";
@@ -19,7 +19,6 @@ export default function AjukanRekanan() {
     email: "",
     id: ""
   });
-  const [perusahaanId, setPerusahaanId] = useState("");
   const [dataPerusahaan, setDataPerusahaan] = useState(0);
   const [izinUsaha, setIzinUsaha] = useState(0);
   const [pemilik, setPemilik] = useState(0);
@@ -39,49 +38,33 @@ export default function AjukanRekanan() {
 
   const data = { dataPerusahaan, izinUsaha, pemilik, pengurus, tenagaAhli }
 
-  async function handleAjukanRekanan() {
-    if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli >= 1) {
-      const data = { user: user.id, dataPerusahaan: perusahaanId }
-      const response = await createRekanan(data);
-      if (response.error) {
-        return toast.error(response?.message);
-      } else {
-        toast.success('Pengajuan Rekanan Berhasil');
-        setStatusRekanan({ status: 'Review' });
+  const fetchStatusRekanan = useCallback(async () => {
+    if (user.id) {
+      const response = await getRekanan();
+      setStatusRekanan(response.data);
+
+      const perusahaan = await getDataPerusahaan();
+      if (perusahaan.data.bidangUsaha) {
+        setDataPerusahaan(perusahaan.data)
       }
-    } else {
-      return toast.error('Pengajuan Rekanan Gagal, Lengkapi Data Terlebih Dahulu');
+
+      const izin = await getIzinUsaha();
+      setIzinUsaha(izin.data.length)
+
+      const pemilik = await getPemilik();
+      setPemilik(pemilik.data.length)
+
+      const pengurus = await getPengurus();
+      setPengurus(pengurus.data.length)
+
+      const tenaga = await getTenagaAhli();
+      setTenagaAhli(tenaga.data.length)
     }
-  }
+  }, [user.id]);
 
   useEffect(() => {
     fetchStatusRekanan();
-  }, [user.id]);
-
-  async function fetchStatusRekanan() {
-    if (user.id) {
-      const response = await getRekanan(user.id);
-      setStatusRekanan(response.data);
-
-      const perusahaan = await getDataPerusahaan(user.id);
-      if (perusahaan.data) {
-        setPerusahaanId(perusahaan.data._id)
-        setDataPerusahaan(perusahaan.data.length)
-      }
-
-      const izin = await getIzinUsaha(user.id);
-      setIzinUsaha(izin.data.length)
-
-      const pemilik = await getPemilik(user.id);
-      setPemilik(pemilik.data.length)
-
-      const pengurus = await getPengurus(user.id);
-      setPengurus(pengurus.data.length)
-
-      const tenaga = await getTenagaAhli(user.id);
-      setTenagaAhli(tenaga.data.length)
-    }
-  }
+  }, [fetchStatusRekanan]);
 
   let statusClass;
 
@@ -91,6 +74,20 @@ export default function AjukanRekanan() {
     statusClass = "bg-red-100 text-red-800";
   } else {
     statusClass = "bg-blue-100 text-blue-800";
+  }
+
+  async function handleAjukanRekanan() {
+    if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli >= 1) {
+      const response = await createRekanan();
+      if (response.error) {
+        return toast.error(response?.message);
+      } else {
+        toast.success('Pengajuan Rekanan Berhasil');
+        setStatusRekanan({ status: 'Review' });
+      }
+    } else {
+      return toast.error('Pengajuan Rekanan Gagal, Lengkapi Data Terlebih Dahulu');
+    }
   }
 
   return (

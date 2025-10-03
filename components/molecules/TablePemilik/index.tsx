@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { deletePemilik, getPemilik } from "@/services/pemilik";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Cookies from 'js-cookie';
@@ -35,16 +35,16 @@ export default function TablePemilik() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchPemilik();
-  }, [user.id]);
-
-  async function fetchPemilik() {
+  const fetchPemilik = useCallback(async () => {
     if (user.id) {
-      const response = await getPemilik(user.id);
+      const response = await getPemilik();
       setPemilik(response.data);
     }
-  }
+  }, [user.id]);
+
+  useEffect(() => {
+    fetchPemilik();
+  }, [fetchPemilik]);
 
   async function handleDelete(id: string) {
     await deletePemilik(id)
@@ -76,7 +76,7 @@ export default function TablePemilik() {
             </tr>
           </thead>
           <tbody>
-            {pemilik.map((pemilik: any) => {
+            {pemilik?.map((pemilik: any) => {
               return (
                 <tr key={pemilik._id} className="bg-white border-b  border-gray-200 hover:bg-gray-50 text-gray-900">
                   <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
