@@ -45,7 +45,7 @@ export default function AjukanRekanan() {
 
       const perusahaan = await getDataPerusahaan();
       if (perusahaan.data.bidangUsaha) {
-        setDataPerusahaan(perusahaan.data)
+        setDataPerusahaan(1);
       }
 
       const izin = await getIzinUsaha();
@@ -77,7 +77,7 @@ export default function AjukanRekanan() {
   }
 
   async function handleAjukanRekanan() {
-    if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli >= 1) {
+    if (dataPerusahaan && izinUsaha && pemilik && pengurus && tenagaAhli) {
       const response = await createRekanan();
       if (response.error) {
         return toast.error(response?.message);
@@ -93,7 +93,7 @@ export default function AjukanRekanan() {
   return (
     <div className="p-3 md:p-10">
       <h2 className="text-4xl font-extrabold dark:text-white mb-8">Status Kelengkapan Administrasi</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-10">
         <TableAjukanRekanan data={data} />
         <div className="px-10">
           <h1 className="font-bold text-2xl">Status Pengajuan</h1>
