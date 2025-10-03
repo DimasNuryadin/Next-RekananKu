@@ -4,21 +4,53 @@ import { Mail, Lock, Eye, EyeOff, User, Building, Phone, ArrowRight } from 'luci
 import { setSignUp } from "@/services/auth";
 import { toast } from 'react-toastify';
 import { useState } from "react";
-
-const _ = require('lodash');
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    namaPerusahaan: '',
+    telepon: '',
+    agreeToTerms: false
+  });
 
-  async function handleSignUp() {
-    const data = { email, password }
-    const response = await setSignUp(data);
+  const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Password tidak cocok!');
+      return;
+    }
+    if (!formData.password || !formData.confirmPassword || !formData.email || !formData.name || !formData.namaPerusahaan || !formData.telepon) {
+      toast.error('Semua data wajib diisi!');
+      return;
+    }
+    if (!formData.agreeToTerms) {
+      toast.error('Anda harus menyetujui syarat dan ketentuan');
+      return;
+    }
+    toast.success('Register berhasil, silahkan login');
+
+    const response = await setSignUp(formData);
     if (response.error) {
       return toast.error(response?.message);
     } else {
-      toast.success('Register berhasil, silahkan login')
+      router.push('/signin');
+      toast.success('Register berhasil, silahkan login');
     }
   };
 
