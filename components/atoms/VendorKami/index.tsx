@@ -13,7 +13,7 @@ const imageLogos = [
 
 export default function VendorKami() {
   return (
-    <div style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', overflow: 'hidden' }}>
       <LogoLoop
         logos={imageLogos}
         speed={120}
@@ -23,7 +23,6 @@ export default function VendorKami() {
         pauseOnHover
         scaleOnHover
         fadeOut
-        fadeOutColor="#ffffff"
         ariaLabel="Technology partners"
       />
     </div>

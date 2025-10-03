@@ -1,84 +1,204 @@
 "use client"
 
-import CardBenefit from "@/components/atoms/CardBenefit";
-import HowItWorks from "@/components/atoms/CardHowItWorks";
 import Navbar from "@/components/molecules/Navbar";
-import VendorKami from "@/components/molecules/VendorKami";
-import SplitText from "@/components/reactbits/splittext";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import VendorKami from "@/components/atoms/VendorKami";
+import { ShoppingCart, Users, FileText, TrendingUp, Check, ArrowRight } from 'lucide-react';
 
 export default function Home() {
-  const router = useRouter();
-  const moveSignIn = () => {
-    router.push('/signin');
-  }
+
+  const features = [
+    {
+      icon: <ShoppingCart className="w-8 h-8" />,
+      title: "Procurement Digital",
+      description: "Kelola pengadaan barang dan jasa secara digital dengan proses yang efisien dan transparan"
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: "Vendor Management",
+      description: "Database vendor terpercaya dengan sistem rating dan verifikasi yang kredibel"
+    },
+    {
+      icon: <FileText className="w-8 h-8" />,
+      title: "Dokumen Terintegrasi",
+      description: "Semua dokumen tender, kontrak, dan invoice tersimpan dengan aman dalam satu platform"
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: "Analitik & Laporan",
+      description: "Dashboard analitik real-time untuk monitoring dan pengambilan keputusan yang lebih baik"
+    }
+  ];
+
+  const benefits = [
+    "Hemat waktu hingga 70% dalam proses pengadaan",
+    "Transparansi penuh di setiap tahap procurement",
+    "Akses ke ribuan vendor terverifikasi",
+    "Keamanan data dengan enkripsi tingkat enterprise",
+    "Dukungan 24/7 dari tim profesional"
+  ];
 
   return (
-    <div className="bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <Navbar />
-      <div className="container mx-auto">
 
-        {/* Hero Section */}
-        <section className="grid grid-cols-2 py-40">
-          <div className="grid place-items-center h-100 ">
-            <div className="pt-10 text-gray-800">
-              <SplitText
-                text="Pengajuan Rekanan Jadi Lebih Mudah"
-                delay={100}
-                duration={0.6}
-                className="text-5xl/16 font-bold "
-              />
-              <p className="font-medium text-lg mt-7 mb-7">Ajukan kerja sama secara online, pantau status real-time, dokumen aman tersimpan.</p>
-              <Button onClick={() => moveSignIn()} className="cursor-pointer bg-gray-800">Sign In</Button>
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
+              Platform E-Procurement
+              {''}
+              <span className="block bg-gradient-to-r from-blue-400 to-cyan-300 text-transparent bg-clip-text">
+                Terpercaya #1 di Indonesia
+              </span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+              Transformasi digital untuk pengadaan barang dan jasa perusahaan Anda.
+              Efisien, transparan, dan terintegrasi dalam satu platform.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/signup" className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105 flex items-center justify-center">
+                Mulai Sekarang
+                <ArrowRight className="ml-2" size={20} />
+              </a>
+              <a href="#features" className="bg-white/10 backdrop-blur text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/20 transition border border-white/20">
+                Pelajari Lebih Lanjut
+              </a>
             </div>
           </div>
-          <div className="flex justify-center">
-            <Image src="/img/hero.png" alt="Hero Image" width={450} height={450} />
-          </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Section Benefit */}
-        <section>
-          <p className="text-4xl font-medium text-center text-gray-800 mb-10">Keunggulan</p>
-          <div className="grid grid-cols-2">
+      {/* Stats Section */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">10K+</div>
+              <div className="text-gray-300">Perusahaan</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-cyan-400 mb-2">50K+</div>
+              <div className="text-gray-300">Vendor</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">1M+</div>
+              <div className="text-gray-300">Transaksi</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-cyan-400 mb-2">99.9%</div>
+              <div className="text-gray-300">Uptime</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Fitur Unggulan
+            </h2>
+            <p className="text-xl text-gray-300">
+              Solusi lengkap untuk semua kebutuhan procurement Anda
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index + 1}
+                className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/10 hover:border-blue-500/50 transition hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-2"
+              >
+                <div className="text-blue-400 mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-300">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section id="benefits" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-900/30 to-cyan-900/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <CardBenefit title="Formulir Online Mudah" desc="Isi data cepat, step by step." icon="/ic/form.svg" />
-              <CardBenefit title="Dokumen Aman" desc="Data terenkripsi & terjamin" icon="/ic/lock.svg" />
-              <CardBenefit title="Proses Cepat" desc="Status transparan & realtime" icon="/ic/time.svg" />
-              <CardBenefit title="Notifikasi Otomatis" desc="Tidak perlu cek manual, selalu terupdate" icon="/ic/bell.svg" />
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Kenapa Memilih RekananKu?
+              </h2>
+              <div className="space-y-4">
+                {benefits.map((benefit, index) => (
+                  <div key={index + 1} className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center mt-1">
+                      <Check size={16} className="text-white" />
+                    </div>
+                    <p className="text-gray-200 text-lg">{benefit}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-16">
-              <Image src="/img/benefit.png" alt="Benefit Image" width={400} height={400} />
+            <div className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl p-8 border border-blue-500/30 backdrop-blur">
+              <div className="space-y-6">
+                <div className="bg-white/10 rounded-lg p-6">
+                  <div className="text-3xl font-bold text-white mb-2">Trusted by Industry Leaders</div>
+                  <p className="text-gray-300">Dipercaya oleh perusahaan-perusahaan terkemuka di Indonesia</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-blue-400">ISO 27001</div>
+                    <div className="text-sm text-gray-300">Certified</div>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-bold text-cyan-400">24/7</div>
+                    <div className="text-sm text-gray-300">Support</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Section How It Works */}
-        <section>
-          <p className="text-4xl font-medium text-center text-gray-800 mt-20 mb-10">How It Works</p>
-          <div className="grid grid-cols-4 gap-6">
-            <HowItWorks icon="/ic/signin.svg" title="1. Daftar Akun" />
-            <HowItWorks icon="/ic/edit.svg" title="2. Isi Form & Upload Dokumen" />
-            <HowItWorks icon="/ic/wait.svg" title="3. Tunggu Verifikasi" />
-            <HowItWorks icon="/ic/check.svg" title="4. Kerja Sama Dimulai 🚀" />
+      {/* CTA Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl p-12 shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Siap Memulai?
+            </h2>
+            <p className="text-xl text-blue-50 mb-8">
+              Bergabunglah dengan ribuan perusahaan yang telah mempercayai RekananKu
+            </p>
+            <a href="/signup" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl transition transform hover:scale-105">
+              Daftar Gratis Sekarang
+            </a>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Section How It Works */}
-        <section>
-          <p className="text-4xl font-medium text-center text-gray-800 mt-20 mb-10">Vendor Kami</p>
-          <div className="">
-            <VendorKami />
+      <section className="py-4 px-4 sm:px-6 lg:px-8 bg-white">
+        <VendorKami />
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900/50 backdrop-blur border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold">R</span>
+            </div>
+            <span className="text-xl font-bold text-white">RekananKu</span>
           </div>
-        </section>
-      </div>
-
-      {/* Section Footer */}
-      <footer className="bg-gray-800 text-white py-6 mt-1">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2024 Your Company. All rights reserved.</p>
+          <p className="text-gray-400">
+            © 2025 RekananKu. Platform E-Procurement Terpercaya Indonesia.
+          </p>
         </div>
       </footer>
     </div>

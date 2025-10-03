@@ -1,59 +1,293 @@
 "use client"
 import Navbar from "@/components/molecules/Navbar";
-import Orb from "@/components/reactbits/orb";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Mail, Lock, Eye, EyeOff, User, Building, Phone, ArrowRight } from 'lucide-react';
 import { setSignUp } from "@/services/auth";
 import { toast } from 'react-toastify';
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
-
-const _ = require('lodash');
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    namaPerusahaan: '',
+    telepon: '',
+    agreeToTerms: false
+  });
 
-  async function handleSignUp() {
-    const data = { email, password }
-    const response = await setSignUp(data);
+  const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Password tidak cocok!');
+      return;
+    }
+    if (!formData.password || !formData.confirmPassword || !formData.email || !formData.name || !formData.namaPerusahaan || !formData.telepon) {
+      toast.error('Semua data wajib diisi!');
+      return;
+    }
+    if (!formData.agreeToTerms) {
+      toast.error('Anda harus menyetujui syarat dan ketentuan');
+      return;
+    }
+    toast.success('Register berhasil, silahkan login');
+
+    const response = await setSignUp(formData);
     if (response.error) {
       return toast.error(response?.message);
     } else {
-      toast.success('Register berhasil, silahkan login')
+      router.push('/signin');
+      toast.success('Register berhasil, silahkan login');
     }
-  }
+  };
 
   return (
-    <div className="bg-gray-100">
-      <div style={{ width: '100%', height: '100vh', position: 'absolute' }}>
-        <Orb
-          hoverIntensity={0.5}
-          rotateOnHover={true}
-          hue={0}
-          forceHoverState={false}
-        />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <Navbar />
-      <div className="flex justify-center items-center h-screen z-10">
-        <div className="w-1/4">
-          <div className="formAuth">
-            <div className="flex justify-center items-center">
-              <Image src="/img/logo.svg" width={180} height={180} alt="Logo RekananKu" />
+
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-40 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-white mb-2">Daftar Sekarang</h1>
+            <p className="text-gray-300">Bergabunglah dengan ribuan perusahaan yang mempercayai RekananKu</p>
+          </div>
+
+          {/* Sign Up Card */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-2xl">
+            <div className="space-y-5">
+              {/* Full Name */}
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+                  Nama Lengkap
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Company Name */}
+              <div>
+                <label htmlFor="namaPerusahaan" className="block text-sm font-medium text-gray-200 mb-2">
+                  Nama Perusahaan
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Building className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="namaPerusahaan"
+                    name="namaPerusahaan"
+                    type="text"
+                    value={formData.namaPerusahaan}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="PT. Nama Perusahaan"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+                  Email Perusahaan
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="nama@perusahaan.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Telepon */}
+              <div>
+                <label htmlFor="telepon" className="block text-sm font-medium text-gray-200 mb-2">
+                  Nomor Telepon
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Phone className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="telepon"
+                    name="telepon"
+                    type="tel"
+                    value={formData.telepon}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-3 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="+62 812-3456-7890"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Confirm Password */}
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-200 mb-2">
+                  Konfirmasi Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="block w-full pl-10 pr-10 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Terms and Conditions */}
+              <div className="flex items-start">
+                <input
+                  id="agreeToTerms"
+                  name="agreeToTerms"
+                  type="checkbox"
+                  checked={formData.agreeToTerms}
+                  onChange={handleChange}
+                  className="h-4 w-4 mt-1 bg-white/5 border-white/10 rounded text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  required
+                />
+                <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-300 cursor-pointer">
+                  Saya menyetujui{' '}
+                  <a href="/terms" className="text-blue-400 hover:text-blue-300">Syarat dan Ketentuan</a>
+                  {' '}serta{' '}
+                  <a href="/privacy" className="text-blue-400 hover:text-blue-300">Kebijakan Privasi</a>
+                </label>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                onClick={handleSubmit}
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition transform hover:scale-105 flex items-center justify-center space-x-2"
+              >
+                <span>Daftar Sekarang</span>
+                <ArrowRight className="h-5 w-5" />
+              </button>
             </div>
-            <div className="flex justify-center items-center mt-4">
-              <Image src="/img/logo-text.svg" width={150} height={150} alt="RekananKu" />
+
+            {/* Divider */}
+            <div className="mt-6 mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/10"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-transparent text-gray-400">atau daftar dengan</span>
+                </div>
+              </div>
             </div>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="bg-white/70 mt-12 mb-4" />
-            <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="bg-white/70 mb-4" />
-            <Input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" placeholder="Confirm Password" className="bg-white/70 mb-4" />
-            <Button onClick={handleSignUp} className="w-full cursor-pointer bg-gray-800">Sign Up</Button>
-            <div className="text-center mt-4 text-sm text-gray-800">
-              Already have account?
-              <Link href="/signin" className="font-medium"> Sign In</Link>
+
+            {/* Social Sign Up Buttons */}
+            <div className="grid gap-4">
+              <button
+                type="button"
+                className="bg-white/5 border border-white/10 text-white py-3 rounded-lg font-medium hover:bg-white/10 transition flex items-center justify-center space-x-2"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+                <span>Google</span>
+              </button>
             </div>
+          </div>
+
+          {/* Sign In Link */}
+          <div className="mt-6 text-center">
+            <p className="text-gray-300">
+              Sudah punya akun?{' '}
+              <Link href="/signin" className="text-blue-400 hover:text-blue-300 font-semibold transition">
+                Masuk sekarang
+              </Link>
+            </p>
           </div>
         </div>
       </div>
