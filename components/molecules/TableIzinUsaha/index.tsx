@@ -12,28 +12,6 @@ export default function TableIzinUsaha() {
   const [izinUsaha, setIzinUsaha] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const jwtToken = atob(token || '');
-      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-      const userFromPayload: UserTypes = payload?.player;
-      setUser(userFromPayload);
-      fetchIzinUsaha(user.id);
-    }
-  }, [])
-
-  async function fetchIzinUsaha(id: string) {
-    const response = await getIzinUsaha(id)
-    setIzinUsaha(response.data);
-  }
-
-  async function handleDelete(id: string) {
-    await deleteIzinUsaha(id)
-    toast.success('Berhasil delete')
-    fetchIzinUsaha(user.id);
-  }
-
-  useEffect(() => {
     const initializeDataTable = async () => {
       const { DataTable } = await import("simple-datatables");
 
@@ -46,6 +24,33 @@ export default function TableIzinUsaha() {
     };
     initializeDataTable();
   }, []);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = atob(token || '');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload?.player;
+      setUser(userFromPayload);
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchIzinUsaha();
+  }, [user.id]);
+
+  async function fetchIzinUsaha() {
+    if (user.id) {
+      const response = await getIzinUsaha(user.id);
+      setIzinUsaha(response.data);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    await deleteIzinUsaha(id)
+    toast.success('Berhasil delete')
+    fetchIzinUsaha();
+  }
 
   return (
     <div>

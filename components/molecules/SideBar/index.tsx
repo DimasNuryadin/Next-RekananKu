@@ -65,7 +65,7 @@ export default function SideBar() {
           <div>
             <p className="text-m text-gray-900 text-center">Selamat datang</p>
             <p className="text-xs text-gray-900 text-center mt-1">{user.email}</p>
-            <Button onClick={handleLogout} className="flex items-center mt-3 p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 group justify-center w-full text-center">
+            <Button onClick={handleLogout} className="flex items-center mt-3 p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 group justify-center w-full text-center cursor-pointer">
               <span>Logout</span>
             </Button>
           </div>

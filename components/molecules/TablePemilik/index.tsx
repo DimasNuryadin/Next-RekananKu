@@ -12,28 +12,6 @@ export default function TablePemilik() {
   const [pemilik, setPemilik] = useState([]);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const jwtToken = atob(token || '');
-      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-      const userFromPayload: UserTypes = payload?.player;
-      setUser(userFromPayload);
-      fetchPemilik(user.id);
-    }
-  }, [])
-
-  async function fetchPemilik(id: string) {
-    const response = await getPemilik(id)
-    setPemilik(response.data);
-  }
-
-  async function handleDelete(id: string) {
-    await deletePemilik(id)
-    toast.success('Berhasil delete')
-    fetchPemilik(user.id);
-  }
-
-  useEffect(() => {
     const initializeDataTable = async () => {
       const { DataTable } = await import("simple-datatables");
 
@@ -46,6 +24,33 @@ export default function TablePemilik() {
     };
     initializeDataTable();
   }, []);
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    if (token) {
+      const jwtToken = atob(token || '');
+      const payload: JWTPayloadTypes = jwtDecode(jwtToken);
+      const userFromPayload: UserTypes = payload?.player;
+      setUser(userFromPayload);
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchPemilik();
+  }, [user.id]);
+
+  async function fetchPemilik() {
+    if (user.id) {
+      const response = await getPemilik(user.id);
+      setPemilik(response.data);
+    }
+  }
+
+  async function handleDelete(id: string) {
+    await deletePemilik(id)
+    toast.success('Berhasil delete')
+    fetchPemilik();
+  }
 
   return (
     <div>
@@ -84,7 +89,7 @@ export default function TablePemilik() {
                     {pemilik.alamat}
                   </td>
                   <td className="px-6 py-4">
-                    {pemilik.saham}
+                    {pemilik.saham}%
                   </td>
                   <td className="px-6 py-4">
                     <Button onClick={() => handleDelete(pemilik._id)} className="bg-red-500 cursor-pointer hover:bg-red-800">Hapus</Button>

@@ -49,7 +49,7 @@ export default function CreatePemilik() {
         <InputForm onChange={(e) => setNama(e.target.value)} value={nama} label="Nama" id="nama" required />
         <InputForm onChange={(e) => setKtp(e.target.value)} value={ktp} label="KTP" id="ktp" required />
         <InputForm onChange={(e) => setAlamat(e.target.value)} value={alamat} label="Alamat" id="alamat" required />
-        <InputForm onChange={(e) => setSaham(e.target.value)} value={saham} label="Saham" id="saham" required />
+        <InputForm onChange={(e) => setSaham(e.target.value)} value={saham} label="Saham (%)" id="saham" required />
         <Button onClick={handleCreatePemilik} className="mt-4 cursor-pointer">Submit</Button>
       </div>
     </div>
