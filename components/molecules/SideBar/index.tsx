@@ -1,3 +1,4 @@
+"use client"
 import ListSidebar from "@/components/atoms/ListSidebar"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -51,7 +52,7 @@ export default function SideBar() {
         </div>
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 flex flex-col justify-between">
           <div>
-            <Link href="/users" className="flex justify-center items-center ps-2.5 mt-6 mb-16">
+            <Link href="/users/data-perusahaan" className="flex justify-center items-center ps-2.5 mt-6 mb-16">
               <Image
                 src="/img/logo-text.svg"
                 alt="Logo"

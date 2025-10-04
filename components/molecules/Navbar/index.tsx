@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -9,11 +10,15 @@ export default function Navbar() {
     <nav className="fixed w-full z-50 bg-slate-900/80 backdrop-blur-lg border-b border-blue-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-white">RekananKu</span>
-            </div>
-          </div>
+          <Link href={`/`} className="flex items-center">
+            <Image
+              src="/img/logo-text-white.svg"
+              alt="Logo"
+              width={160}
+              height={100}
+              sizes="(max-width: 768px) 100vw, 160px"
+            />
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">

@@ -3,6 +3,8 @@
 import Navbar from "@/components/molecules/Navbar";
 import VendorKami from "@/components/atoms/VendorKami";
 import { ShoppingCart, Users, FileText, TrendingUp, Check, ArrowRight } from 'lucide-react';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -57,10 +59,10 @@ export default function Home() {
               Efisien, transparan, dan terintegrasi dalam satu platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/signup" className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105 flex items-center justify-center">
+              <Link href="/signup" className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition transform hover:scale-105 flex items-center justify-center">
                 Mulai Sekarang
                 <ArrowRight className="ml-2" size={20} />
-              </a>
+              </Link>
               <a href="#features" className="bg-white/10 backdrop-blur text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/20 transition border border-white/20">
                 Pelajari Lebih Lanjut
               </a>
@@ -176,9 +178,9 @@ export default function Home() {
             <p className="text-xl text-blue-50 mb-8">
               Bergabunglah dengan ribuan perusahaan yang telah mempercayai RekananKu
             </p>
-            <a href="/signup" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl transition transform hover:scale-105">
+            <Link href="/signup" className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-2xl transition transform hover:scale-105">
               Daftar Gratis Sekarang
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -191,10 +193,13 @@ export default function Home() {
       <footer className="bg-slate-900/50 backdrop-blur border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">R</span>
-            </div>
-            <span className="text-xl font-bold text-white">RekananKu</span>
+            <Image
+              src="/img/logo-text-white.svg"
+              alt="Logo"
+              width={160}
+              height={100}
+              sizes="(max-width: 768px) 100vw, 160px"
+            />
           </div>
           <p className="text-gray-400">
             © 2025 RekananKu. Platform E-Procurement Terpercaya Indonesia.
