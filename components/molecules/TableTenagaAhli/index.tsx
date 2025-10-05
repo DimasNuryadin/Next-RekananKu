@@ -37,7 +37,7 @@ export default function TableTenagaAhli() {
 
   const fetchTenagaAhli = useCallback(async () => {
     if (user.id) {
-      const response = await getTenagaAhli(user.id);
+      const response = await getTenagaAhli();
       setTenagaAhli(response.data);
     }
   }, [user.id]);

@@ -37,7 +37,7 @@ export default function TablePengurus() {
 
   const fetchPengurus = useCallback(async () => {
     if (user.id) {
-      const response = await getPengurus(user.id);
+      const response = await getPengurus();
       setPengurus(response.data);
     }
   }, [user.id])
