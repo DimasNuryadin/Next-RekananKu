@@ -150,5 +150,5 @@ Pastikan environment variable `NEXT_PUBLIC_API_URL` mengarah ke domain backend p
 
 - Gunakan **token autentikasi** (Bearer / JWT) di setiap request ke API. 
 
-## Screenshoot
+## 📸 Screenshoot
 <img src="https://res.cloudinary.com/dgharj3cy/image/upload/v1762059238/RekanaKu_nzbsp8.png" alt="RekananKu" />
