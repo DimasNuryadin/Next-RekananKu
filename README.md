@@ -1,4 +1,3 @@
-
 # Next‑RekananKu
 
 **Next‑RekananKu** adalah frontend aplikasi web untuk sistem procurement “RekananKu”, dibangun dengan **Next.js** + **TypeScript**.  
@@ -36,7 +35,7 @@ hooks/
 lib/
 public/
 services/
-.env.example
+.env
 next.config.ts
 tsconfig.json
 package.json
@@ -59,7 +58,7 @@ Penjelasan singkat:
 
 ### Prasyarat
 
-- Node.js (versi LTS, misalnya 18+)
+- Node.js (versi LTS, misalnya 20+)
 - npm / yarn / pnpm  
 - Backend **Express-RekananKu** harus sudah berjalan dan tersedia URL-nya  
 
@@ -72,7 +71,7 @@ Penjelasan singkat:
     cd Next-RekananKu
     ```
 
-2. Buat file `.env.local` (atau cukup copy dari `.env.example`) dan isi variabel environment yang diperlukan, misalnya:
+2. Buat file `.env` (atau cukup copy dari `.env.example`) dan isi variabel environment yang diperlukan, misalnya:
 
     ```
     NEXT_PUBLIC_API_URL=http://localhost:4001
@@ -108,7 +107,6 @@ Frontend akan melakukan panggilan ke API backend (Express-RekananKu). Beberapa t
 
 - Autentikasi (login, token, middleware)  
 - CRUD data rekanan (create, read, update, delete)  
-- Fetch daftar barang/jasa, detail, dsb  
 - Verifikasi, status, atau proses bisnis khusus procurement  
 
 Pastikan backend dijalankan dan endpointnya sesuai dengan base URL di konfigurasi frontend.
@@ -133,7 +131,7 @@ npm run start
 ```
 
 Atau deploy ke platform seperti **Vercel** (direkomendasikan untuk Next.js) atau server lain yang bisa menjalankan Node.js.  
-Pastikan environment variable `NEXT_PUBLIC_API_BASE_URL` mengarah ke domain backend produksi.
+Pastikan environment variable `NEXT_PUBLIC_API_URL` mengarah ke domain backend produksi.
 
 ---
 
@@ -151,3 +149,6 @@ Pastikan environment variable `NEXT_PUBLIC_API_BASE_URL` mengarah ke domain back
 ## ℹ️ Catatan & Tips
 
 - Gunakan **token autentikasi** (Bearer / JWT) di setiap request ke API. 
+
+## Screenshoot
+<img src="https://res.cloudinary.com/dgharj3cy/image/upload/v1762059238/RekanaKu_nzbsp8.png" alt="RekananKu" />
